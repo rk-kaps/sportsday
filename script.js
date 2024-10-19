@@ -1,7 +1,8 @@
+// Import Firebase SDK modules
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js"; // Correct import
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
 
-// Firebase config
+// Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyAdYqEKabIlm02vRfVOuBJYJF0PKCpavkQ",
     authDomain: "sportsday-c7a16.firebaseapp.com",
@@ -58,3 +59,14 @@ onValue(dbRef, (snapshot) => {
         studentList.innerHTML = '<tr><td colspan="2">No student data available</td></tr>';
     }
 });
+
+// MutationObserver to watch for DOM changes
+const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+        console.log('DOM modified:', mutation);
+        // You can run additional code when DOM changes are detected
+    });
+});
+
+// Observe the student list for any changes
+observer.observe(document.body, { childList: true, subtree: true });
