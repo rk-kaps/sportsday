@@ -7,14 +7,33 @@
     <link rel="stylesheet" href="stylesheet.css"> <!-- Link to external CSS file -->
 </head>
 <body>
-    <h1>SPORTS AY</h1>
-    <DIV>
-        <br> DBPC (Delhi British Public School) Sports Day is an annual event that embodies the spirit of sportsmanship and camaraderie among students. The event typically features a variety of athletic competitions, including track and field events, relays, and team sports.
+    <span>
+        
+       <u><h1 style="font-style: italic">SPORTS DAY</h1>  </u> 
+    <div class="text-container">
+        <p>DBPC (Don Bosco Park Circus) Sports Day is an annual event that embodies the spirit of sportsmanship and camaraderie among students. The event typically features a variety of athletic competitions, including track and field events, relays, and team sports.
+        Students of all ages participate, showcasing their talents and determination. The day begins with a colorful parade, where students march proudly representing their respective houses. The opening ceremony often includes motivational speeches.</p>
+    </div>
 
-        Students of all ages participate, showcasing their talents and determination. The day begins with a colorful parade, where students march proudly representing their respective houses. The opening ceremony often includes motivational</br>
-    </DIV>
-
-    
+    <!-- Clock Container -->
+    <div id="container_timer">
+        <div class="flip-card">
+            <div class="top"></div>
+            <div class="bottom"></div>
+        </div>
+        <div class="flip-card">
+            <div class="top"></div>
+            <div class="bottom"></div>
+        </div>
+        <div class="flip-card">
+            <div class="top"></div>
+            <div class="bottom"></div>
+        </div>
+        <div class="flip-card">
+            <div class="top"></div>
+            <div class="bottom"></div>
+        </div>
+    </div>
 
     <div class="video-container">
         <iframe width="560" height="315" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" 
@@ -24,20 +43,20 @@
         </iframe>
     </div>
 
-    <div class="table-container">
-        <table id="student-table">
-            <thead>
-                <tr>
-                    <th>Student Name</th>
-                    <th>Points</th>
-                </tr>
-            </thead>
-            <tbody id="student-list">
-                <!-- Rows will be dynamically populated here -->
-            </tbody>
-        </table>
-    </div>
-
+    <!-- Table structure for displaying Leaderboard -->
+    <table id="student-table" border="1">
+        <thead>
+            <tr>
+                <th>Student ID</th>
+                <th>Points</th>
+            </tr>
+        </thead>
+        <tbody id="student-list">
+            <!-- Dynamic Leaderboard data will be inserted here -->
+        </tbody>
+    </table>
+    
+    
     <script type="module" src="script.js"></script>
 </body>
 </html>
