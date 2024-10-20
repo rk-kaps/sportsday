@@ -1,11 +1,98 @@
 /* stylesheet.css */
+#container_timer {
+    color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: center;
+    text-shadow: 0 0 20px #fff, 0 0 30px #5fa0c6, 0 0 40px #5fa0c6, 0 0 50px #5fa0c6, 0 0 60px #5fa0c6, 0 0 70px #5fa0c6, 0 0 80px #5fa0c6;
+    margin-top: 11%;
+    margin-left: -15%;
+}
+
+@media(max-width:900px) {
+    #container_timer {
+        margin-top: 0%;
+        margin-left: 1%;
+    }
+}
+
+.flip-card {
+    display: inline-flex;
+    flex-direction: column;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .2);
+    border-radius: .1em;
+    opacity: 90%;
+    font-size: 70px;
+}
+
+.top,
+.bottom,
+.flip-card .top-flip,
+.flip-card .bottom-flip {
+    height: 0.7em;
+    line-height: 1;
+    padding: .2em;
+    overflow: hidden;
+}
+
+.top,
+.flip-card .top-flip {
+    background-color: #000000;
+    border-top-right-radius: .1em;
+    border-top-left-radius: .1em;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.bottom,
+.flip-card .bottom-flip {
+    background-color: #000000;
+    display: flex;
+    align-items: flex-end;
+    border-bottom-right-radius: .1em;
+    border-bottom-left-radius: .1em;
+}
+
+.flip-card .top-flip {
+    position: absolute;
+    width: 100%;
+    animation: flip-top 250ms ease-in;
+    transform-origin: bottom;
+}
+
+@keyframes flip-top {
+    100% {
+        transform: rotateX(90deg);
+    }
+}
+
+.flip-card .bottom-flip {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    animation: flip-bottom 250ms ease-out 250ms;
+    transform-origin: top;
+    transform: rotateX(90deg);
+}
+
+@keyframes flip-bottom {
+    100% {
+        transform: rotateX(0deg);
+    }
+}
+
+@media (max-width: 990px) {
+    .top,
+    .bottom,
+    .flip-card .top-flip,
+    .flip-card .bottom-flip {
+        height: 0.6em;
+        padding: 0.1em;
+        display: flex;
+        font-size: 40px;
+    }
+}
 
 body {
-    body {
-    background-image: url('C:\Users\Ritwik\Downloads\bg1.jpg')}
-
-      background-size: cover;
-    color: #333;
+    background-image: url('C:\Users\Ritwik\Downloads\bg1.jpg');
     font-family: Arial, sans-serif;
     margin: 20px;
 }
@@ -13,8 +100,16 @@ body {
 h1 {
     text-align: center;
     margin-top: 20px;
-    color: white;
+    color: rgb(0, 0, 0);
 }
+.text-container {
+    border: 5px solid purple; /* Border thickness and color */
+    padding: 10px; /* Space between the text and the border */
+    margin: 30px; /* Space around the container */
+    border-radius: 5px; /* Optional: makes the corners rounded */
+    background-color: rgba(255, 255, 255, 0.8); /* Optional: light background color */
+}
+
 
 .video-container {
     display: flex;
