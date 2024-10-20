@@ -53,7 +53,7 @@
 
 .flip-card .top-flip {
     position: absolute;
-    width: 100%;
+    width: 50%;
     animation: flip-top 250ms ease-in;
     transform-origin: bottom;
 }
