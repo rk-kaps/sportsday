@@ -1,11 +1,13 @@
 /* stylesheet.css */
 #container_timer {
     color: rgb(255, 255, 255);
-    display: flex;
+    display: block;
     justify-content: center;
     text-shadow: 0 0 20px #fff, 0 0 30px #5fa0c6, 0 0 40px #5fa0c6, 0 0 50px #5fa0c6, 0 0 60px #5fa0c6, 0 0 70px #5fa0c6, 0 0 80px #5fa0c6;
-    margin-top: 11%;
+    margin-top: 10%;
     margin-left: -15%;
+    height: 50px;
+    width: 50%;
 }
 
 @media(max-width:900px) {
@@ -18,7 +20,7 @@
 .flip-card {
     display: inline-flex;
     flex-direction: column;
-    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, .2);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .2);
     border-radius: .1em;
     opacity: 90%;
     font-size: 70px;
@@ -53,7 +55,7 @@
 
 .flip-card .top-flip {
     position: absolute;
-    width: 50%;
+    width: 100%;
     animation: flip-top 250ms ease-in;
     transform-origin: bottom;
 }
@@ -92,7 +94,7 @@
 }
 
 body {
-    background-image: url('bg1.jpg');
+    background-image: url('C:\Users\Ritwik\Downloads\bg1.jpg');
     font-family: Arial, sans-serif;
     margin: 20px;
 }
