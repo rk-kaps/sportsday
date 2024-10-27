@@ -1,118 +1,27 @@
-/* stylesheet.css */
-#container_timer {
-    color: rgb(255, 255, 255);
-    display: block;
-    justify-content: center;
-    text-shadow: 0 0 20px #fff, 0 0 30px #5fa0c6, 0 0 40px #5fa0c6, 0 0 50px #5fa0c6, 0 0 60px #5fa0c6, 0 0 70px #5fa0c6, 0 0 80px #5fa0c6;
-    margin-top: 10%;
-    margin-left: -15%;
-    height: 50px;
-    width: 50%;
-}
-
-@media(max-width:900px) {
-    #container_timer {
-        margin-top: 0%;
-        margin-left: 1%;
-    }
-}
-
-.flip-card {
-    display: inline-flex;
-    flex-direction: column;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .2);
-    border-radius: .1em;
-    opacity: 90%;
-    font-size: 70px;
-}
-
-.top,
-.bottom,
-.flip-card .top-flip,
-.flip-card .bottom-flip {
-    height: 0.7em;
-    line-height: 1;
-    padding: .2em;
-    overflow: hidden;
-}
-
-.top,
-.flip-card .top-flip {
-    background-color: #000000;
-    border-top-right-radius: .1em;
-    border-top-left-radius: .1em;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.bottom,
-.flip-card .bottom-flip {
-    background-color: #000000;
-    display: flex;
-    align-items: flex-end;
-    border-bottom-right-radius: .1em;
-    border-bottom-left-radius: .1em;
-}
-
-.flip-card .top-flip {
-    position: absolute;
-    width: 100%;
-    animation: flip-top 250ms ease-in;
-    transform-origin: bottom;
-}
-
-@keyframes flip-top {
-    100% {
-        transform: rotateX(90deg);
-    }
-}
-
-.flip-card .bottom-flip {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    animation: flip-bottom 250ms ease-out 250ms;
-    transform-origin: top;
-    transform: rotateX(90deg);
-}
-
-@keyframes flip-bottom {
-    100% {
-        transform: rotateX(0deg);
-    }
-}
-
-@media (max-width: 990px) {
-    .top,
-    .bottom,
-    .flip-card .top-flip,
-    .flip-card .bottom-flip {
-        height: 0.6em;
-        padding: 0.1em;
-        display: flex;
-        font-size: 40px;
-    }
-}
-
+/* General Page Background */
 body {
-    background-image: url('bg1.jpg');
+    background-color: #ffffff;
     font-family: Arial, sans-serif;
     margin: 20px;
 }
 
+/* Header Styling */
 h1 {
     text-align: center;
     margin-top: 20px;
     color: rgb(0, 0, 0);
 }
+
+/* Text Container Styling */
 .text-container {
-    border: 5px solid purple; /* Border thickness and color */
-    padding: 10px; /* Space between the text and the border */
-    margin: 30px; /* Space around the container */
-    border-radius: 5px; /* Optional: makes the corners rounded */
-    background-color: rgba(255, 255, 255, 0.8); /* Optional: light background color */
+    border: 5px solid purple;
+    padding: 10px;
+    margin: 30px;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
-
+/* Centered Video Container */
 .video-container {
     display: flex;
     justify-content: center;
@@ -122,9 +31,74 @@ h1 {
 iframe {
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    width: 560px;
-    height: 315px;
 }
+
+/* Timer Container */
+#container_timer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10%;
+    height: 100px;
+    width: 100%;
+}
+
+.flip-card {
+    position: relative;
+    width: 60px;
+    height: 100px;
+    margin: 0 10px;
+    font-size: 40px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.top-flip, .bottom-flip {
+    width: 100%;
+    height: 50%;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.top-flip {
+    border-bottom: 1px solid #333;
+}
+
+.bottom-flip {
+    border-top: 1px solid #333;
+}
+
+/* Container for boxes */
+.box-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    max-width: 440px;
+    margin: 0 auto;
+}
+
+.box {
+    width: 150px;
+    height: 150px;
+    color: white;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+}
+
+.red { background-color: red; }
+.blue { background-color: blue; }
+.green { background-color: green; }
+.yellow { background-color: yellow; }
 
 .table-container {
     display: block;
