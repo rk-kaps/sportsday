@@ -8,53 +8,51 @@
 </head>
 <body>
     <span>
-        
-       <u><h1 style="font-style: italic">SPORTS DAY</h1>  </u> 
+       <u><h1 style="font-style: italic">SPORTS DAY</h1></u> 
+    </span>
+    
     <div class="text-container">
-        <p>DBPC (Don Bosco Park Circus) Sports Day is an annual event that embodies the spirit of sportsmanship and camaraderie among students. The event typically features a variety of athletic competitions, including track and field events, relays, and team sports.
-        Students of all ages participate, showcasing their talents and determination. The day begins with a colorful parade, where students march proudly representing their respective houses. The opening ceremony often includes motivational speeches.</p>
+        <p>DBPC (Don Bosco Park Circus) Sports Day is an annual event that embodies the spirit of sportsmanship and camaraderie among students. The event typically features a variety of athletic competitions, including track and field events, relays, and team sports. Students of all ages participate, showcasing their talents and determination. The day begins with a colorful parade, where students march proudly representing their respective houses. The opening ceremony often includes motivational speeches.</p>
     </div>
 
     <!-- Clock Container -->
     <div id="container_timer">
-        
         <div class="flip-card">
-            <div class="top"></div>
-            <div class="bottom"></div>
+            <div class="top-flip">12</div>
+            
         </div>
-
-        ------
         <div class="flip-card">
-            <div class="top"></div>
-            <div class="bottom"></div>
+            <div class="top-flip">34</div>
+           
         </div>
-
-        ------
         <div class="flip-card">
-            <div class="top"></div>
-            <div class="bottom"></div>
+            <div class="top-flip">56</div>
+           
         </div>
-
-        ------
         <div class="flip-card">
-            <div class="top"></div>
-            <div class="bottom"></div>
+            <div class="top-flip">08</div>
+            
         </div>
     </div>
-
+    
+    <br><br>
     <div class="video-container">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" 
-            title="YouTube video player" 
-            frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen>
-        </iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/E-Po06nG9Mo?si=BoavVhexVQt3RK4W" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    
+    <h2>House Points</h2>
+    <div class="box-container">
+        <div class="box red" id="redBox">0</div>
+        <div class="box blue" id="blueBox">0</div>
+        <div class="box green" id="greenBox">0</div>
+        <div class="box yellow" id="yellowBox">0</div>
     </div>
 
-    <!-- Table structure for displaying Leaderboard -->
+    <h2>Leaderboard</h2>
     <table id="student-table" border="1">
         <thead>
             <tr>
-                <th>Student ID</th>
+                <th>Participant</th>
                 <th>Points</th>
             </tr>
         </thead>
@@ -62,7 +60,6 @@
             <!-- Dynamic Leaderboard data will be inserted here -->
         </tbody>
     </table>
-    
     
     <script type="module" src="script.js"></script>
 </body>
