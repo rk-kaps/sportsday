@@ -12,7 +12,11 @@ h1 {
     margin-top: 20px;
     color: rgb(0, 0, 0);
 }
-
+h2 {
+    text-align: center;
+    margin-top: 20px;
+    color: rgb(0, 0, 0);
+}
 /* Text Container Styling */
 .text-container {
     border: 5px solid purple;
