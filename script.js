@@ -1,6 +1,8 @@
+// Firebase Imports
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
 
+// Firebase Configuration
 const firebaseConfig = {
     apiKey: "AIzaSyAdYqEKabIlm02vRfVOuBJYJF0PKCpavkQ",
     authDomain: "sportsday-c7a16.firebaseapp.com",
@@ -16,69 +18,78 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 console.log("Firebase Initialized Successfully");
 
-const dbRef = ref(db, 'ParticipantList'); // Adjust the path as necessary
-onValue(dbRef, (snapshot) => {
-    console.log("Received data from Firebase");
-    const students = snapshot.val();
-    console.log(students);
+// References to database paths
+const participantRef = ref(db, 'ParticipantList');
+const houseRef = ref(db, 'HouseList');
 
-    if (!students) {
-        console.error("No student data found.");
-        return;
-    }
+// Function to update the leaderboard
+function updateLeaderboard(snapshot) {
+    const students = snapshot.val();
+    console.log("Received data from Firebase:", students);
 
     const studentList = document.getElementById('student-list');
-    if (studentList) {
-        studentList.innerHTML = ''; // Clear previous entries
- 
-        const sortedStudents = Object.entries(students).sort(([, pointsA], [, pointsB]) => pointsB - pointsA);
+    if (!studentList || !students) return;
 
-        // Iterate over sorted students and append rows to the table
-        sortedStudents.forEach(([studentId, points]) => {
-            const studentRow = `<tr>
-                                    <td>${studentId}</td>
-                                    <td>${points}</td>
-                                </tr>`;
-            studentList.innerHTML += studentRow; // Append new row to table
-        });
-        console.log("Participant table updated and sorted by points.");
-    }
+    studentList.innerHTML = ''; // Clear previous entries
 
-//clockstuff
-const cards = document.querySelectorAll('.flip-card');
+    // Sort students by points in descending order and display them
+    const sortedStudents = Object.entries(students).sort(([, pointsA], [, pointsB]) => pointsB - pointsA);
+    sortedStudents.forEach(([studentId, points]) => {
+        const studentRow = `<tr>
+                                <td>${studentId}</td>
+                                <td>${points}</td>
+                            </tr>`;
+        studentList.innerHTML += studentRow; // Append new row to table
+    });
+    console.log("Participant table updated and sorted by points.");
+}
+
+// Listen for changes to the ParticipantList in Firebase
+onValue(participantRef, updateLeaderboard);
+
+// Function to update the countdown timer
 function updateClock() {
     const endDate = "30 November 2024 8:00 AM";
-
-    //document.getElementById("end-Date").innerText = endDate;
-
     const end = new Date(endDate);
     const now = new Date();
-    const d = (end - now)/1000;
-    
+    const d = (end - now) / 1000; // Difference in seconds
+
     // Update each flip-card with the current time values
-    cards[0].querySelector('.top').textContent = Math.floor(d/3600/24);
-    cards[1].querySelector('.top').textContent = Math.floor(d/3600)%24;
-    cards[2].querySelector('.top').textContent = Math.floor(d/60)%60;
-    cards[3].querySelector('.top').textContent =Math.floor(d)%60;
-    // Optional: You can add a flip animation here if you'd like to make it more dynamic
+    const days = Math.floor(d / 3600 / 24);
+    const hours = Math.floor((d / 3600) % 24);
+    const minutes = Math.floor((d / 60) % 60);
+    const seconds = Math.floor(d % 60);
+
+    const cards = document.querySelectorAll('.flip-card');
+    cards[0].querySelector('.top-flip').textContent = days;
+    cards[1].querySelector('.top-flip').textContent = hours;
+    cards[2].querySelector('.top-flip').textContent = minutes;
+    cards[3].querySelector('.top-flip').textContent = seconds;
 }
-    
-// Call the updateClock function every second (1000 ms)
+
+// Call updateClock every second
 setInterval(updateClock, 1000);
+updateClock(); // Initial call to set the time on load
 
-// Initial call to set the time immediately on load
-updateClock();
+// Function to update house points
+function updateHousePoints(snapshot) {
+    const data = snapshot.val();
+    if (data) {
+        document.getElementById('redBox').textContent = data.R;
+        document.getElementById('blueBox').textContent = data.B;
+        document.getElementById('greenBox').textContent = data.G;
+        document.getElementById('yellowBox').textContent = data.Y;
+        console.log("House points updated:", data);
+    }
+}
 
+// Listen for changes to the HouseList in Firebase
+onValue(houseRef, updateHousePoints);
 
-    
-});
-
-// MutationObserver to watch for DOM changes
-const observer = new MutationObserver(function(mutations) {
-    mutations.forEach(function(mutation) {
+// Optional: Observe the student list for DOM changes
+const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
         console.log('DOM modified:', mutation);
     });
 });
-
-// Observe the student list for any changes
 observer.observe(document.body, { childList: true, subtree: true });
