@@ -3,6 +3,7 @@ body {
     background-color: #ffffff;
     font-family: Arial, sans-serif;
     margin: 20px;
+    background-image: url("bg1.jpg");
 }
 
 /* Header Styling */
