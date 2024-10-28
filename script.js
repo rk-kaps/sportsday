@@ -1,8 +1,6 @@
-// Firebase Imports
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
 
-// Firebase Configuration
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import { getDatabase, ref, onValue ,get,child} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
 const firebaseConfig = {
     apiKey: "AIzaSyAdYqEKabIlm02vRfVOuBJYJF0PKCpavkQ",
     authDomain: "sportsday-c7a16.firebaseapp.com",
@@ -13,16 +11,17 @@ const firebaseConfig = {
     appId: "1:894609801143:web:d8cb620c60a278c0c07232",
 };
 
-// Initialize Firebase
+
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 console.log("Firebase Initialized Successfully");
 
-// References to database paths
+
 const participantRef = ref(db, 'ParticipantList');
+//ref(db, `Classes/${selectedClass}/EVENTS/${selectedEvent}/PARTICIPANTS`)
 const houseRef = ref(db, 'HouseList');
 
-// Function to update the leaderboard
+
 function updateLeaderboard(snapshot) {
     const students = snapshot.val();
     console.log("Received data from Firebase:", students);
@@ -30,33 +29,65 @@ function updateLeaderboard(snapshot) {
     const studentList = document.getElementById('student-list');
     if (!studentList || !students) return;
 
-    studentList.innerHTML = ''; // Clear previous entries
+    studentList.innerHTML = ''; 
 
-    // Sort students by points in descending order and display them
+    
     const sortedStudents = Object.entries(students).sort(([, pointsA], [, pointsB]) => pointsB - pointsA);
-    sortedStudents.forEach(([studentId, points]) => {
+    sortedStudents.slice(0, 3).forEach(([studentId, points]) => {
         const studentRow = `<tr>
                                 <td>${studentId}</td>
                                 <td>${points}</td>
                             </tr>`;
-        studentList.innerHTML += studentRow; // Append new row to table
+        studentList.innerHTML += studentRow; 
     });
     console.log("Participant table updated and sorted by points.");
 }
+function updateEvents() {
+    const classSelect = document.getElementById('class');
+    const selectedClass = classSelect.value;
+    const eventSelect = document.getElementById('event');
 
-// Listen for changes to the ParticipantList in Firebase
-onValue(participantRef, updateLeaderboard);
+   
+    eventSelect.innerHTML = '';
 
-// Function to update the countdown timer
+   
+    const dbRef = ref(db);
+    console.log("selected class");
+    get(child(dbRef, 'Classes/' + selectedClass + '/EVENTS')).then((snapshot) => {
+        if (snapshot.exists()) {
+            const events = snapshot.val();
+            Object.keys(events).forEach(event => {
+                const option = document.createElement('option');
+                option.value = event;
+                option.textContent = event;
+                eventSelect.appendChild(option);
+            });
+        } else {
+            const option = document.createElement('option');
+            option.value = '';
+            option.textContent = 'No events available';
+            eventSelect.appendChild(option);
+        }
+    }).catch((error) => {
+        console.error('Error fetching events:', error);
+    });
+}
+document.getElementById('eventForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const selectedClass = document.getElementById('class').value;
+    const selectedEvent = document.getElementById('event').value;
+    onValue(ref(db, `Classes/${selectedClass}/EVENTS/${selectedEvent}/PARTICIPANTS`), updateLeaderboard);
+});
+
 function updateClock() {
     const endDate = "30 November 2024 8:00 AM";
     const end = new Date(endDate);
     const now = new Date();
-    const d = (end - now) / 1000; // Difference in seconds
 
-    // Update each flip-card with the current time values
+    const d = (end - now) / 1000;
     const days = Math.floor(d / 3600 / 24);
     const hours = Math.floor((d / 3600) % 24);
+
     const minutes = Math.floor((d / 60) % 60);
     const seconds = Math.floor(d % 60);
 
@@ -67,11 +98,10 @@ function updateClock() {
     cards[3].querySelector('.top-flip').textContent = seconds;
 }
 
-// Call updateClock every second
-setInterval(updateClock, 1000);
-updateClock(); // Initial call to set the time on load
 
-// Function to update house points
+setInterval(updateClock, 1000);
+updateClock(); 
+
 function updateHousePoints(snapshot) {
     const data = snapshot.val();
     if (data) {
@@ -83,10 +113,11 @@ function updateHousePoints(snapshot) {
     }
 }
 
-// Listen for changes to the HouseList in Firebase
+
 onValue(houseRef, updateHousePoints);
 
-// Optional: Observe the student list for DOM changes
+window.updateEvents = updateEvents;
+
 const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
         console.log('DOM modified:', mutation);
