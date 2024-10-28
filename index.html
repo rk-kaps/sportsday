@@ -41,26 +41,54 @@
     </div>
     
     <h1>House Points</h1>
-    <div class="box-container">
-        <div class="box red" id="redBox">0</div>
-        <div class="box blue" id="blueBox">0</div>
-        <div class="box green" id="greenBox">0</div>
-        <div class="box yellow" id="yellowBox">0</div>
+    <div class="strip-container">
+        <div class="strip red">
+            <input type="text" id="redBox" value="0">
+        </div>
+        <div class="strip blue">
+            <input type="text" id="blueBox" value="0">
+        </div>
+        <div class="strip green">
+            <input type="text" id="greenBox" value="0">
+        </div>
+        <div class="strip yellow">
+            <input type="text" id="yellowBox" value="0">
+        </div>
     </div>
-
-    <h1>Leaderboard</h1>
-    <table id="student-table" border="1">
-        <thead>
-            <tr>
-                <th>Participant</th>
-                <th>Points</th>
-            </tr>
-        </thead>
-        <tbody id="student-list">
-            <!-- Dynamic Leaderboard data will be inserted here -->
-        </tbody>
-    </table>
     
+
+    <form id="eventForm">
+        <h1>Check result</h1>
+        <label for="class">Class:</label>
+        <select id="class" name="class" onchange="updateEvents()">
+            <option value="CLASS_Kg">Kg</option>
+            <option value="CLASS_1">1</option>
+            <option value="CLASS_2">2</option>
+            <option value="CLASS_3">3</option>
+            <option value="CLASS_4">4</option>
+            <option value="CLASS_5">5</option>
+        </select>
+        
+        <label for="event">Event</label>
+        <select id="event" name="event">
+        </select>
+        
+        <button type="submit">Check Result</button>
+    </form>
+    <div id="results"
+        
+        <table id="student-table" border="1">
+            <thead>
+                <tr>
+                    <th>Participant</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody id="student-list">
+            
+            </tbody>
+        </table>
+    </div>
     <script type="module" src="script.js"></script>
 </body>
 </html>
