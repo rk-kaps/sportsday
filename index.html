@@ -6,89 +6,98 @@
     <title>Sports Day</title>
     <link rel="stylesheet" href="stylesheet.css"> <!-- Link to external CSS file -->
 </head>
+<style>
+    @import url('https://fonts.cdnfonts.com/css/the-bold-font');
+</style>
 <body>
-    <span>
-       <u><h1 style="font-style: italic">SPORTS DAY</h1></u> 
-    </span>
-    
-    <div class="text-container">
-        <p>DBPC (Don Bosco Park Circus) Sports Day is an annual event that embodies the spirit of sportsmanship and camaraderie among students. The event typically features a variety of athletic competitions, including track and field events, relays, and team sports. Students of all ages participate, showcasing their talents and determination. The day begins with a colorful parade, where students march proudly representing their respective houses. The opening ceremony often includes motivational speeches.</p>
+    <div class="wrapper">
+    <div class="header">
+        <h1>SPORTS DAY</h1>
+    </div>
+    <div class="house-points">
+        <div class="strip-container">
+            <div class="strip red">
+                <span id="redBox" class="points">0</span>
+                <span class="house-name">Red House</span>
+            </div>
+            <div class="strip blue">
+                <span id="blueBox" class="points">0</span>
+                <span class="house-name">Blue House</span>
+            </div>
+            <div class="strip green">
+                <span id="greenBox" class="points">0</span>
+                <span class="house-name">Green House</span>
+            </div>
+            <div class="strip yellow">
+                <span id="yellowBox" class="points">0</span>
+                <span class="house-name">Yellow House</span>
+            </div>
+        </div>
+        
+            
     </div>
 
-    <!-- Clock Container -->
-    <div id="container_timer">
-        <div class="flip-card">
-            <div class="top-flip">12</div>
+    <div class="timer-container">
+        <div id="container_timer">
+            <div class="flip-card"><div class="top-flip">12</div></div>
+            <div class="flip-card"><div class="top-flip">34</div></div>
+            <div class="flip-card"><div class="top-flip">56</div></div>
+            <div class="flip-card"><div class="top-flip">08</div></div>
+        </div>
+    </div>
+   
+        <div class="video-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/E-Po06nG9Mo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="content">
+            <div class="text-container">
+                <p>DBPC (Don Bosco Park Circus) Sports Day is an annual event that embodies the spirit of sportsmanship and camaraderie among students. The event typically features a variety of athletic competitions, including track and field events, relays, and team sports. Students of all ages participate, showcasing their talents and determination. The day begins with a colorful parade, where students march proudly representing their respective houses. The opening ceremony often includes motivational speeches.</p>
+            </div>
+    
+       
+        
+     
+        <form id="eventForm">
+            <h2>Check Result</h2>
+            <label for="class">Class:</label>
+            <select id="class" name="class">
+                <option value="CLASS_Kg">Kg</option>
+                <option value="CLASS_1">1</option>
+                <option value="CLASS_2">2</option>
+                <option value="CLASS_3">3</option>
+                <option value="CLASS_4">4</option>
+                <option value="CLASS_5">5</option>
+            </select>
             
-        </div>
-        <div class="flip-card">
-            <div class="top-flip">34</div>
-           
-        </div>
-        <div class="flip-card">
-            <div class="top-flip">56</div>
-           
-        </div>
-        <div class="flip-card">
-            <div class="top-flip">08</div>
+            <label for="class">Category:</label>
+            <select id="category" name="category" onchange="updateEvents()">
+                <option value="Individual">Individual</option>
+                <option value="Team">team</option>
+            </select>
             
+            <label for="event">Event</label>
+            <select id="event" name="event"></select>
+            <div id="text">
+            <button type="submit">Check Result</button></div>
+        </form>
+        
+        <div class="table-container">
+            <table id="student-table">
+                <thead>
+                    <tr>
+                        <th>Participant</th>
+                        <th>House</th>
+                        <th>Points</th>
+                        
+                    </tr>
+                </thead>
+                <tbody id="student-list"></tbody>
+            </table>
         </div>
     </div>
-    
-    <br><br>
-    <div class="video-container">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/E-Po06nG9Mo?si=BoavVhexVQt3RK4W" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    </div>
-    
-    <h1>House Points</h1>
-    <div class="strip-container">
-        <div class="strip red">
-            <input type="text" id="redBox" value="0">
-        </div>
-        <div class="strip blue">
-            <input type="text" id="blueBox" value="0">
-        </div>
-        <div class="strip green">
-            <input type="text" id="greenBox" value="0">
-        </div>
-        <div class="strip yellow">
-            <input type="text" id="yellowBox" value="0">
-        </div>
-    </div>
-    
 
-    <form id="eventForm">
-        <h1>Check result</h1>
-        <label for="class">Class:</label>
-        <select id="class" name="class" onchange="updateEvents()">
-            <option value="CLASS_Kg">Kg</option>
-            <option value="CLASS_1">1</option>
-            <option value="CLASS_2">2</option>
-            <option value="CLASS_3">3</option>
-            <option value="CLASS_4">4</option>
-            <option value="CLASS_5">5</option>
-        </select>
-        
-        <label for="event">Event</label>
-        <select id="event" name="event">
-        </select>
-        
-        <button type="submit">Check Result</button>
-    </form>
-    <div id="results"
-        
-        <table id="student-table" border="1">
-            <thead>
-                <tr>
-                    <th>Participant</th>
-                    <th>Points</th>
-                </tr>
-            </thead>
-            <tbody id="student-list">
-            
-            </tbody>
-        </table>
-    </div>
     <script type="module" src="script.js"></script>
+    <!-- Bootstrap JS -->
+  </div>
 </body>
 </html>
