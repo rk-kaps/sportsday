@@ -1,3 +1,4 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 import { getDatabase, ref, onValue ,get,child} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
 const firebaseConfig = {
     apiKey: "AIzaSyAdYqEKabIlm02vRfVOuBJYJF0PKCpavkQ",
@@ -66,7 +67,7 @@ function updateEvents() {
    
     const dbRef = ref(db);
     console.log("selected class");
-    get(child(dbRef, Classes/${selectedClass}/CATEGORY/${selectedCategory}/EVENTS/)).then((snapshot) => {
+    get(child(dbRef, `Classes/${selectedClass}/CATEGORY/${selectedCategory}/EVENTS/`)).then((snapshot) => {
         if (snapshot.exists()) {
             const events = snapshot.val();
             Object.keys(events).forEach(event => {
@@ -90,8 +91,8 @@ document.getElementById('eventForm').addEventListener('submit', function(event) 
     const selectedClass = document.getElementById('class').value;
     const selectedEvent = document.getElementById('event').value;
     const selectedCategory = document.getElementById('category').value;
-    const pathRef = Classes/${selectedClass}/CATEGORY/${selectedCategory}/EVENTS/${selectedEvent};
-    onValue(ref(db, ${pathRef}/HOUSE/), updateLeaderboard);
+    const pathRef = `Classes/${selectedClass}/CATEGORY/${selectedCategory}/EVENTS/${selectedEvent}`;
+    onValue(ref(db, `${pathRef}/HOUSE/`), updateLeaderboard);
 });
 
 function updateClock() {
