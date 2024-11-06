@@ -1,5 +1,3 @@
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 import { getDatabase, ref, onValue ,get,child} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
 const firebaseConfig = {
     apiKey: "AIzaSyAdYqEKabIlm02vRfVOuBJYJF0PKCpavkQ",
@@ -18,27 +16,42 @@ console.log("Firebase Initialized Successfully");
 
 
 const participantRef = ref(db, 'ParticipantList');
-//ref(db, `Classes/${selectedClass}/EVENTS/${selectedEvent}/PARTICIPANTS`)
+//ref(db, Classes/${selectedClass}/EVENTS/${selectedEvent}/PARTICIPANTS)
 const houseRef = ref(db, 'HouseList');
 
 
 function updateLeaderboard(snapshot) {
-    const students = snapshot.val();
-    console.log("Received data from Firebase:", students);
-
-    const studentList = document.getElementById('student-list');
-    if (!studentList || !students) return;
-
-    studentList.innerHTML = ''; 
-
     
-    const sortedStudents = Object.entries(students).sort(([, pointsA], [, pointsB]) => pointsB - pointsA);
-    sortedStudents.slice(0, 3).forEach(([studentId, points]) => {
-        const studentRow = `<tr>
-                                <td>${studentId}</td>
-                                <td>${points}</td>
-                            </tr>`;
-        studentList.innerHTML += studentRow; 
+    const data = snapshot.val();
+    console.log(data);
+    const allParticipants = [];
+
+    // Collect all participants with their points and house
+    for (const house in data) {
+    const participants = data[house];
+    for (const participant in participants) {
+        allParticipants.push({
+        name: participant,
+        points: participants[participant],
+        house: house
+        });
+        console.log(participant+'  '+participants[participant]+'  '+house)
+    }
+    }
+
+    // Sort participants by points in descending order
+    const sortedParticipants = allParticipants.sort((a, b) => b.points - a.points);
+
+    // Display the top 3 participants in an HTML table
+    const studentList = document.getElementById("student-table"); // Assuming there's a table body with this ID
+
+    sortedParticipants.slice(0, 3).forEach(({ name, points, house }) => {
+    const studentRow = `<tr>
+                            <td>${name}</td>
+                            <td>${house}</td>
+                            <td>${points}</td>
+                        </tr>`;
+    studentList.innerHTML += studentRow; 
     });
     console.log("Participant table updated and sorted by points.");
 }
@@ -46,14 +59,14 @@ function updateEvents() {
     const classSelect = document.getElementById('class');
     const selectedClass = classSelect.value;
     const eventSelect = document.getElementById('event');
-
+    const selectedCategory = document.getElementById('category').value;
    
     eventSelect.innerHTML = '';
 
    
     const dbRef = ref(db);
     console.log("selected class");
-    get(child(dbRef, 'Classes/' + selectedClass + '/EVENTS')).then((snapshot) => {
+    get(child(dbRef, Classes/${selectedClass}/CATEGORY/${selectedCategory}/EVENTS/)).then((snapshot) => {
         if (snapshot.exists()) {
             const events = snapshot.val();
             Object.keys(events).forEach(event => {
@@ -76,7 +89,9 @@ document.getElementById('eventForm').addEventListener('submit', function(event) 
     event.preventDefault();
     const selectedClass = document.getElementById('class').value;
     const selectedEvent = document.getElementById('event').value;
-    onValue(ref(db, `Classes/${selectedClass}/EVENTS/${selectedEvent}/PARTICIPANTS`), updateLeaderboard);
+    const selectedCategory = document.getElementById('category').value;
+    const pathRef = Classes/${selectedClass}/CATEGORY/${selectedCategory}/EVENTS/${selectedEvent};
+    onValue(ref(db, ${pathRef}/HOUSE/), updateLeaderboard);
 });
 
 function updateClock() {
@@ -105,10 +120,10 @@ updateClock();
 function updateHousePoints(snapshot) {
     const data = snapshot.val();
     if (data) {
-        document.getElementById('redBox').textContent = data.R;
-        document.getElementById('blueBox').textContent = data.B;
-        document.getElementById('greenBox').textContent = data.G;
-        document.getElementById('yellowBox').textContent = data.Y;
+        document.getElementById('redBox').textContent = data.Red;
+        document.getElementById('blueBox').textContent = data.Blue;
+        document.getElementById('greenBox').textContent = data.Green;
+        document.getElementById('yellowBox').textContent = data.Yellow;
         console.log("House points updated:", data);
     }
 }
