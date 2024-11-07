@@ -39,19 +39,30 @@ function updateLeaderboard(snapshot) {
         console.log(participant+'  '+participants[participant]+'  '+house)
     }
     }
-
+    
     // Sort participants by points in descending order
     const sortedParticipants = allParticipants.sort((a, b) => b.points - a.points);
 
     // Display the top 3 participants in an HTML table
     const studentList = document.getElementById("student-table"); // Assuming there's a table body with this ID
-
-    sortedParticipants.slice(0, 3).forEach(({ name, points, house }) => {
-    const studentRow = `<tr>
-                            <td>${name}</td>
-                            <td>${house}</td>
-                            <td>${points}</td>
-                        </tr>`;
+    studentList.innerHTML = '';
+    studentList.innerHTML+= `                
+                    <thead>
+                        <tr>
+                            <th>Participant</th>
+                            <th>House</th>
+                            <th>Points</th>
+                            
+                        </tr>
+                    </thead>`;
+        sortedParticipants.slice(0, 3).forEach(({ name, points, house }) => {
+        const studentRow = `<tr>
+                                <td>${name}</td>
+                                <td>${house}</td>
+                                <td>${points}</td>
+                            </tr>`;
+        
+        
     studentList.innerHTML += studentRow; 
     });
     console.log("Participant table updated and sorted by points.");
